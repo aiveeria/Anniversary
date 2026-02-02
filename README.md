@@ -1,1 +1,150 @@
 # Anniversary
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Anniversary 💍</title>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      background: #ffe6ee;
+      font-family: "Segoe UI", Arial, sans-serif;
+      text-align: center;
+      padding-top: 90px;
+      overflow: hidden;
+      transition: background 1.5s ease;
+    }
+
+    /* Wedding background AFTER YES */
+    body.show-wedding {
+      background-image: linear-gradient(
+          rgba(255, 230, 238, 0.85),
+          rgba(255, 230, 238, 0.85)
+        ),
+        url("wedding.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    button {
+      border-radius: 35px;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    /* YES button */
+    #yes {
+      background: #ff4d6d;
+      color: white;
+      padding: 20px 46px;
+      transform: scale(1.15);
+      box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
+    }
+
+    /* FUNNY NO button */
+    #no {
+      background: #111;
+      color: #fff;
+      padding: 14px 32px;
+      font-size: 18px;
+      position: fixed;
+      border-radius: 30px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    #hint {
+      margin-top: 25px;
+      font-size: 15px;
+      color: #444;
+    }
+
+    #owned {
+      display: none;
+      margin-top: 45px;
+      font-size: 36px;
+      font-weight: bold;
+      color: #c9184a;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Tamil song -->
+  <audio id="music" loop>
+    <source src="jumbalaka.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1>💍💖💍</h1>
+
+  <h2>Happy Anniversary</h2>
+
+  <h3>Will you choose me again today?</h3>
+
+  <button id="yes" onclick="yesClicked()">Yes</button>
+
+  <button
+    id="no"
+    onmouseover="runAway()"
+    ontouchstart="runAway()"
+  >
+    😈 No 🖤
+  </button>
+
+  <div id="hint">
+    “No” seems extra shy today 👀
+  </div>
+
+  <div id="owned">
+    PROPERTY OF AISHWARYA 💍😌
+  </div>
+
+  <script>
+    let yesScale = 1.15;
+
+    function runAway() {
+      const noBtn = document.getElementById("no");
+      const yesBtn = document.getElementById("yes");
+
+      const bw = noBtn.offsetWidth;
+      const bh = noBtn.offsetHeight;
+
+      const x = Math.random() * (window.innerWidth - bw);
+      const y = Math.random() * (window.innerHeight - bh);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      // YES grows every time NO runs
+      yesScale += 0.07;
+      yesBtn.style.transform = `scale(${yesScale})`;
+    }
+
+    function yesClicked() {
+      document.getElementById("music").play();
+
+      // Show wedding photo background
+      document.body.classList.add("show-wedding");
+
+      confetti({
+        particleCount: 300,
+        spread: 120,
+        origin: { y: 0.6 }
+      });
+
+      document.getElementById("owned").style.display = "block";
+
+      setTimeout(() => {
+        alert("Yeah that’s right 😌 You are married to me hahaha.");
+      }, 400);
+    }
+  </script>
+
+</body>
+</html>
